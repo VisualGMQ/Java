@@ -16,6 +16,64 @@
 * ==符号比较的是对象的地址，`.equal()`函数比较的才是内容（重写了==或`.euqal()`的类除外）。
 * Java很啰嗦。
 
+***
+## Java的RTTI和反射
+### RTTI
+
+Java和C++11一样也有RTTI。如果你想获得Java类的信息，你可以有一下三种方法:
+```java
+//假设有Point类
+Class c = Point.class;  //way1
+Class c = Class.forName("Point");   //way2，参数为类名的字符串
+
+//way3
+Point p = new Point;
+Class c = p.getClass();
+```
+**需要注意的是，way2是需要进行异常捕获的。因为可能不存在这个类**
+这些函数都会返回`Class`类。`Class`类其实保存在.class文件中，也就是编译之后的.class文件。所以只有类才可以得到自己的Class对象，不是类或者不存在的类是没有办法得到的。需要注意的是，Array和Enum也被视为类。
+
+通过Class对象，我们可以获得关于类的很多很多信息，比较有用的功能如下：
+* 获得类的名称
+    * getName()：获得类的名称
+    * getSimpleName()：获得类的名称（不带包名）
+* 判断类的类型
+    * isLocalClass()：是不是局部类
+    * isInterface()：是不是接口
+    * isArray()：是数组吗
+    * isEnum()：是枚举吗
+    
+    等其他很多很多的判断函数。
+* 获得父类的Class对象：getSuperclass()
+* 调用构造函数：newInstance()。但是这个函数只能调用默认构造函数。如果没有默认构造函数的话就报错。
+
+总之有很多很多的函数可以帮助你查到类型的信息。
+
+### 反射
+反射是在RTTI的基础上，得到更多的类的信息，主要可以得到类的构造方法，成员函数，字段等等详细的信息。
+
+要想使用反射，需要包含`java.lang.reflect.*`包。
+
+反射的话可以通过下面这个例子看一下:
+```java
+//获得字段
+Field[] fields = CPoint.getDeclaredFields();
+for (Field f : fields)
+    System.out.println(f);
+
+//获得构造函数
+Constructor[] construct = CPoint.getConstructors();
+for (Constructor c : construct) {
+    System.out.println(c);
+}
+
+//获得成员方法
+Method[] methods = CPoint.getMethods();
+for (Method m : methods) {
+    System.out.println(m);
+    System.out.println(m.getReturnType());
+}
+```
 
 ***
 ## Java容器

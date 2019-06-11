@@ -1,6 +1,6 @@
 import java.util.*;
 
-class collision {
+class collection {
     public static void main(String[] args) {
         // ArrayList
         ArrayList<Integer> array = new ArrayList<Integer>();
