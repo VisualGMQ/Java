@@ -352,3 +352,38 @@ public static void main(String[] args){
 如果你的注解适用于字段的话，你可以获得所有的字段，然后进行分析。
 
 ***
+## Java多线程
+所有的支持多线程的语言都差不多，因为他们要遵循多线程的规则。
+在Java中，你首先需要实现`Runnable`接口来实现一个继承类，并且**复写run()方法**，然后将其传递给`Thread`类产生实例后，调用其`start()`方法才可以：
+```java
+//实现Runnable接口
+class thread implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i < 10; i++)
+            System.out.println(i);
+    }
+}
+
+//在main中
+Thread t = new Thread(new thread());
+t.start();
+```
+
+这里还有一些有用的线程函数，用于在run方法中使用的：
+* Thread.yield()：让步函数。这个函数告诉CPU，当前进程最重要的地方已经执行完了，接下来CPU可以随时切换时间片。
+* Thread.sleep()：线程休眠，毫秒，会抛出异常。
+* Thread.currentThread()：返回当前线程对象
+* Thread.currentThread().setProperty()/getProperty()：设置当前线程优先级，优先级有:
+    * Thread.MIN_PROPERTY
+    * Thread.NORMAL_PROPERTY
+    * Thread.MAX_PROPERTY
+    
+    需要注意，不能直接使用setProperty()/getProperty()函数。
+
+还有一些Thread类对象的函数：
+* setDaemon(true/false)：后台线程。如果为true则设置为后台线程（必须在start()方法前调用）。
+    
+    所谓后台线程，就是不是程序必须的线程。当所有的后台线程执行完毕后，后台线程会被无条件杀死。
+* join()：线程阻塞。你也可以给这个函数一个毫秒时间。如果时间到了线程还没结束，则会直接返回。
+
