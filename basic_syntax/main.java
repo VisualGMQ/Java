@@ -12,10 +12,10 @@ class testabs {
     }
 }
 
-public class maina extends testabs {
+public class main extends testabs {
     public static void main(String[] args) {
         testabs abs = new testabs();
-        ((maina) abs).sum(1, 3);
+        ((main) abs).sum(1, 3);
     }
 
     @Override

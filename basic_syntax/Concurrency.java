@@ -1,6 +1,5 @@
 import java.util.*;
-
-import javafx.beans.property.SetProperty;
+import java.util.concurrent.*;
 
 class thread implements Runnable {
     @Override
@@ -25,6 +24,7 @@ public class Concurrency {
         try {
             t1.join();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         t2.start();
         System.out.println("haha");
