@@ -1,6 +1,7 @@
 package com.gmq.test
 
 fun main(){
+    //和swift一样的区间表示法
     for(i in 1..10)
         print(" $i")
     var list = listOf("Apple", "Orange", "Banana")
